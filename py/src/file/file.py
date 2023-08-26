@@ -1,6 +1,7 @@
 def readFile(path:str) -> str:
-    file = open(path)
-    return file.read()
+    return open(path).read()
 
-def writeFile():
-    return
+def writeFile(path:str,content:str):
+    file = open(path)
+    file.write(content)
+    pass
