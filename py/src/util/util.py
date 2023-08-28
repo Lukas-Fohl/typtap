@@ -5,7 +5,8 @@ class contentType(Enum):
     text = 2
     bulletpoint =  3
     code = 4
-    none = 5
+    bold = 5
+    none = 6
 
 class linePart:
     linePartContent:str = ""
@@ -21,4 +22,16 @@ class line:
 class file:
     lines:[line] = [line]
 
-listOfTokens = ["$h","$b"]
+fullLineToken = ["$h","$p"]
+partLineToken = ["$b"]
+
+def contentTypeFromStr(input: str) -> contentType:
+    match str(input):
+        case "$h":
+            return contentType.header
+        case "$p":
+            return contentType.bulletpoint
+        case "$b":
+            return contentType.bold
+        case _:
+            return contentType.none
