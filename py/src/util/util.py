@@ -6,7 +6,8 @@ class contentType(Enum):
     bulletpoint =  3
     code = 4
     bold = 5
-    none = 6
+    pi = 6
+    none = 7
 
 class linePart:
     linePartContent:str = ""
@@ -17,13 +18,22 @@ class linePart:
         pass
 
 class line:
-    lineParts:[linePart] = [linePart]
+    lineParts = []
+    def __init__(self) -> None:
+        self.lineParts = [linePart]
+        self.lineParts.clear()
+        pass
 
 class file:
-    lines:[line] = [line]
+    lines = []
+    def __init__(self) -> None:
+        self.lines = [line]
+        self.lines.clear()
+        pass
 
 fullLineToken = ["$h","$p"]
-partLineToken = ["$b"]
+partLineTokenParentheses = ["$b"]
+partLineTokenSymbol = ["$pi"]
 
 def contentTypeFromStr(input: str) -> contentType:
     match str(input):
@@ -33,5 +43,7 @@ def contentTypeFromStr(input: str) -> contentType:
             return contentType.bulletpoint
         case "$b":
             return contentType.bold
+        case "$pi":
+            return contentType.pi
         case _:
             return contentType.none
