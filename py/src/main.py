@@ -7,10 +7,8 @@ def main():
 
     """
     fileContent = file.readFile("../testFiles/main.file")
-    #print(fileContent)
-    #print(analysis.splitContent(fileContent).lines[3].lineParts[2].linePartType)
     line = 3
-    index = 1
+    index = 4
     print("T line: " + str(line) + " ; index: " + str(index) + str(" ") + str(analysis.splitContent(fileContent).lines[line].lineParts[index].linePartType))
     print("C line: " + str(line) + " ; index: " + str(index) + str(" ") + str(analysis.splitContent(fileContent).lines[line].lineParts[index].linePartContent))
     """

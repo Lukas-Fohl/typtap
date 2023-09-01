@@ -14,6 +14,10 @@ def update(screen,file:util.file)->bool:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             return False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_q:
+                return False
+
     displayFile(screen,file)
     return True
 
@@ -31,7 +35,7 @@ def displayFile(screen,file:util.file)->None:
         currentLine = ""
         for x in file.lines[i].lineParts:
             currentLine += x.linePartContent
-        text_helvectica = displayFont_hel.render(currentLine, False, (0,0,0))
+        text_helvectica = displayFont_hel.render(currentLine, True, (0,0,0))
         screen.blit(text_helvectica, (sideoffset, i*lineSpacing + topoffset))
         pass
 
