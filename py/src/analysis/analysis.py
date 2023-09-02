@@ -8,11 +8,20 @@ def splitContent(content:str)->util.file:
         tempLine = util.line()
 
         wordsFullLine = currentLine.split(' ')
-        for lineToken in util.fullLineToken:
-            for word in wordsFullLine: 
-                if (lineToken == word):
-                    tempLine.lineParts.append(util.linePart(str(currentLine),util.contentTypeFromStr(lineToken)))
-                    break
+        for word in wordsFullLine:
+            if word in util.fullLineToken:
+
+                #remove token from string
+                for i in range(len(wordsFullLine)):
+                    if i < len(wordsFullLine):
+                        if wordsFullLine[i] in util.fullLineToken:
+                            wordsFullLine.pop(i)
+
+                #add to list
+                tempLine.lineParts.append(util.linePart(str(' '.join(wordsFullLine)),util.contentTypeFromStr(word)))
+                break
+
+        #break
         if len(tempLine.lineParts) > 0:
             tempFileReturn.lines.append(tempLine)
             continue
@@ -24,12 +33,18 @@ def splitContent(content:str)->util.file:
                 tempLine.lineParts.append(util.linePart(str(words[i] + " "),util.contentTypeFromStr(words[i])))
             elif words[i] in util.partLineTokenParentheses:
                 if currentContentType == util.contentTypeFromStr(words[i]):
-                    tempLine.lineParts.append(util.linePart(str(words[i] + " "),currentContentType))
+
+                    #to not add the token
+                    #tempLine.lineParts.append(util.linePart(str(words[i] + " "),currentContentType))
+
                     currentContentType = util.contentType.text
                     continue
                 else:
                     currentContentType = util.contentTypeFromStr(words[i])
-                tempLine.lineParts.append(util.linePart(str(words[i] + " "),currentContentType))
+                    continue
+                    #continue to not add token
+
+                #tempLine.lineParts.append(util.linePart(str(words[i] + " "),currentContentType))
             elif currentContentType == util.contentType.text:
                 tempLine.lineParts.append(util.linePart(str(words[i] + " "),util.contentType.text))
             else:
