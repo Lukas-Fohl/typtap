@@ -21,6 +21,14 @@ def update(screen,file:util.file)->bool:
     displayFile(screen,file)
     return True
 
+class printAble:
+    textLinePart:util.linePart
+    position=[]
+    def __init__(self,LinePart,position_) -> None:
+        self.position = position_
+        self.textLinePart = LinePart
+        pass
+
 def displayFile(screen,file:util.file)->None:
 
     lineSpacing = 28
@@ -30,14 +38,27 @@ def displayFile(screen,file:util.file)->None:
     screen.fill((255,255,255))
     pygame.font.init()
     displayFont_hel = pygame.font.Font("./util/font/helvetica/Helvetica.ttf",20)
+    displayFont_hel_bold = pygame.font.Font("./util/font/helvetica/Helvetica-Bold.ttf",20)
+    displayFont_hel_Header = pygame.font.Font("./util/font/helvetica/Helvetica-Bold.ttf",26)
 
     for i in range(len(file.lines)):
-        currentLine = ""
-        for x in file.lines[i].lineParts:
-            currentLine += x.linePartContent
-        text_helvectica = displayFont_hel.render(currentLine, True, (0,0,0))
-        screen.blit(text_helvectica, (sideoffset, i*lineSpacing + topoffset))
-        pass
+        currentLine = []
+        for j in range(len(file.lines[i].lineParts)):
+            x = sideoffset + j * 60;
+            y = i*lineSpacing + topoffset;
+            p_ = printAble(file.lines[i].lineParts[j],(x,y))
+            currentLine.append(p_)
+        for a in currentLine:
+            if(a.textLinePart.linePartType == util.contentType.bold):
+                text_helvectica = displayFont_hel_bold.render(a.textLinePart.linePartContent, True, (0,0,0))
+                screen.blit(text_helvectica, (a.position[0],a.position[1]))
+            elif(a.textLinePart.linePartType == util.contentType.header):
+                text_helvectica = displayFont_hel_Header.render(a.textLinePart.linePartContent, True, (0,0,0))
+                screen.blit(text_helvectica, (a.position[0],a.position[1]))
+            else:
+                text_helvectica = displayFont_hel.render(a.textLinePart.linePartContent, True, (0,0,0))
+                screen.blit(text_helvectica, (a.position[0],a.position[1]))
+            pass
 
 
     #displayFont_times = pygame.font.Font("./util/font/timesNewRoman/times new roman.ttf",32)
