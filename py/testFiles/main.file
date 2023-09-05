@@ -1,4 +1,5 @@
-$h basic header
-$p basic bulletpoint
-some text $pi lksdjf
-some thing $b no na $b jkösdf
+$h Test-header
+$t $p some:
+$t $t $p some $i oblique $i
+$t $t $p some $b bold $b
+$t $t $p some $pi

@@ -7,7 +7,9 @@ class contentType(Enum):
     code = 4
     bold = 5
     pi = 6
-    none = 7
+    tab = 7
+    italic = 8
+    none = 9
 
 class linePart:
     linePartContent:str = ""
@@ -31,9 +33,9 @@ class file:
         self.lines.clear()
         pass
 
-fullLineToken = ["$h","$p"]
-partLineTokenParentheses = ["$b"]
-partLineTokenSymbol = ["$pi"]
+fullLineToken = ["$h"]
+partLineTokenParentheses = ["$b","$i"]
+partLineTokenSymbol = ["$pi","$t","$p"]
 
 def contentTypeFromStr(input: str) -> contentType:
     match str(input):
@@ -45,5 +47,9 @@ def contentTypeFromStr(input: str) -> contentType:
             return contentType.bold
         case "$pi":
             return contentType.pi
+        case "$t":
+            return contentType.tab
+        case "$i":
+            return contentType.italic
         case _:
             return contentType.none
