@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "./file/file.h"
+#include "./util/util.h"
 
 int main(){
-	char* path = "/home/lukas/code/typtap/testFiles/main.file";
-	char* test = readFile(path);
-	printf("%s\n",test);
+	printf("hi\n");
+	//noteFile mainFile = 
+	//	appendFile().
+	//	appendFile()
+	//;
 	return 0;
 }
