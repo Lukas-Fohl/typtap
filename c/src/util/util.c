@@ -10,17 +10,23 @@ typedef struct metaData {
 
 typedef struct line {
     char content[LINELENGTH];
+    int indent;
     enum lineTypes type;
-    void (*appendConntent)(struct line* self, char* input);    //done
-    void (*setConntent)(struct line* self, char* input);       //done
+    void (*appendConntent)(struct line* self, char* input);
+    void (*setContent)(struct line* self, char* input);
+    void (*setFont)(struct line* self, char* font);
 }line;
 
 typedef struct noteFile {
     line lines[FILELENGTH];
-    void (*addLine)(struct noteFile* self, line input); //done
+    void (*addLine)(struct noteFile* self, line input);
 }noteFile;
 
 //Line - beginning
+
+void setFont(struct line* self, char* font){
+    //todo
+}
 
 void appendContent(line* self, char* input){
     int lastIndex = 0;
@@ -55,22 +61,31 @@ line lineConstrEmpty(){
     line temp;
 
     temp.appendConntent = appendContent;
-    temp.setConntent = setContent;
+    temp.setContent = setContent;
+    temp.setFont = setFont;
 
     for(int i = 0; i < LINELENGTH; i++){
         temp.content[i] = '\0';
     }
+
     temp.type = empty;
+
     return temp;
 }
 
-line lineConstr(enum lineTypes type_, char* input){
+line lineConstr(enum lineTypes type_, int indent_, char* input){
     line temp = lineConstrEmpty();
+
     temp.type = type_;
-    int inputSize = sizeof(input)/sizeof(char);
+
+    temp.indent = indent_;
+
+    int inputSize = strlen(input);
+
     for(int i = 0; i < inputSize; i++){
         temp.content[i] = input[i];
     }
+
     return temp;
 }
 

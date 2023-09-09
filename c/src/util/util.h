@@ -9,7 +9,7 @@ typedef struct noteFile noteFile;
 typedef struct metaData metaData;
 
 line lineConstrEmpty();
-line lineConstr(enum lineTypes type_, char* input);
+line lineConstr(enum lineTypes type_, int indent_, char* input);
 noteFile noteFileContrEmpty();
 
 #endif
